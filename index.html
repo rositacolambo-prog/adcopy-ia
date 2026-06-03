@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdCopy IA — Anuncios para Meta Ads en segundos</title>
+  <meta name="description" content="Genera anuncios profesionales para Facebook e Instagram con inteligencia artificial. Sin conocimientos de marketing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0f;
+      --bg2: #16161a;
+      --bg3: #1e1e24;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.15);
+      --text: #f0ede8;
+      --text2: #9a9799;
+      --text3: #5a5860;
+      --accent: #e8c97a;
+      --accent2: #c9a84c;
+      --success: #5ecb8a;
+      --danger: #e06060;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,15,0.88);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--accent); display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 16px; height: 16px; }
+    .nav-logo-name { font-size: 16px; font-weight: 600; color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #0d0d0f; font-weight: 600;
+      font-size: 13px; padding: 8px 18px; border-radius: 8px;
+      border: none; cursor: pointer; transition: opacity 0.15s;
+      text-decoration: none;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero {
+      max-width: 680px; margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--accent);
+      border: 0.5px solid rgba(232,201,122,0.3);
+      padding: 4px 14px; border-radius: 20px;
+      margin-bottom: 1.5rem;
+      background: rgba(232,201,122,0.06);
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    h1 em { color: var(--accent); font-style: italic; }
+
+    .hero-sub {
+      font-size: 16px; color: var(--text2);
+      max-width: 480px; margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex; justify-content: center; gap: 2rem;
+      margin-bottom: 3rem; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 22px; font-weight: 600; color: var(--text); }
+    .stat-label { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+    /* FORM */
+    .form-card {
+      max-width: 620px; margin: 0 auto;
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .form-section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+      color: var(--text3); text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .field { margin-bottom: 1.25rem; }
+    .field label {
+      display: block; font-size: 13px;
+      color: var(--text2); margin-bottom: 6px;
+    }
+    .field label strong { color: var(--text); font-weight: 500; }
+
+    input[type="text"], textarea {
+      width: 100%; font-family: 'DM Sans', sans-serif;
+      font-size: 14px; color: var(--text);
+      background: var(--bg3);
+      border: 0.5px solid var(--border);
+      border-radius: 10px; padding: 11px 14px;
+      outline: none; transition: border-color 0.15s;
+    }
+    input[type="text"]:focus, textarea:focus {
+      border-color: rgba(232,201,122,0.4);
+    }
+    input[type="text"]::placeholder, textarea::placeholder { color: var(--text3); }
+    textarea { resize: none; height: 80px; line-height: 1.5; }
+
+    .divider-line {
+      border: none; border-top: 0.5px solid var(--border);
+      margin: 1.5rem 0;
+    }
+
+    .tone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .tone-btn {
+      padding: 9px 6px; background: var(--bg3);
+      border: 0.5px solid var(--border); border-radius: 10px;
+      font-size: 13px; font-family: 'DM Sans', sans-serif;
+      color: var(--text2); cursor: pointer; text-align: center;
+      transition: all 0.15s;
+    }
+    .tone-btn:hover { border-color: var(--border2); color: var(--text); }
+    .tone-btn.active {
+      background: rgba(232,201,122,0.12);
+      border-color: rgba(232,201,122,0.5);
+      color: var(--accent);
+    }
+
+    .generate-btn {
+      width: 100%; margin-top: 1.5rem;
+      padding: 14px; background: var(--accent); color: #0d0d0f;
+      border: none; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; gap: 8px;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .generate-btn:hover { opacity: 0.88; }
+    .generate-btn:active { transform: scale(0.99); }
+    .generate-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* RESULTS */
+    .results-wrap { max-width: 620px; margin: 2rem auto 0; }
+
+    .loading {
+      text-align: center; padding: 2.5rem;
+      display: none;
+    }
+    .dots { display: flex; justify-content: center; gap: 7px; margin-bottom: 14px; }
+    .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--accent); opacity: 0.3;
+      animation: blink 1.4s infinite ease-in-out;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%,80%,100%{opacity:0.3} 40%{opacity:1} }
+    .loading p { font-size: 14px; color: var(--text2); }
+
+    .results-header {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--success);
+      margin-bottom: 1rem;
+    }
+    .results-header svg { width: 16px; height: 16px; }
+
+    .ad-card {
+      background: var(--bg2); border: 0.5px solid var(--border);
+      border-radius: 14px; padding: 1.4rem;
+      margin-bottom: 1rem; position: relative;
+      transition: border-color 0.15s;
+      animation: fadeUp 0.3s ease both;
+    }
+    .ad-card:hover { border-color: var(--border2); }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .ad-card:nth-child(2) { animation-delay: 0.08s; }
+    .ad-card:nth-child(3) { animation-delay: 0.16s; }
+
+    .ad-num {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+      color: var(--text3); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .ad-title {
+      font-size: 16px; font-weight: 600; color: var(--text);
+      margin-bottom: 8px; line-height: 1.4; padding-right: 80px;
+    }
+    .ad-body {
+      font-size: 14px; color: var(--text2);
+      line-height: 1.65; margin-bottom: 12px;
+    }
+    .ad-cta {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      color: var(--accent); background: rgba(232,201,122,0.1);
+      border: 0.5px solid rgba(232,201,122,0.25);
+      padding: 4px 14px; border-radius: 20px;
+    }
+
+    .copy-btn {
+      position: absolute; top: 1.4rem; right: 1.4rem;
+      background: var(--bg3); border: 0.5px solid var(--border);
+      border-radius: 8px; padding: 6px 12px;
+      font-size: 12px; font-family: 'DM Sans', sans-serif;
+      color: var(--text2); cursor: pointer;
+      display: flex; align-items: center; gap: 5px;
+      transition: all 0.15s;
+    }
+    .copy-btn:hover { border-color: var(--border2); color: var(--text); }
+    .copy-btn.copied { color: var(--success); border-color: rgba(94,203,138,0.4); }
+    .copy-btn svg { width: 13px; height: 13px; }
+
+    /* UPGRADE */
+    .upgrade-bar {
+      display: none; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      background: rgba(232,201,122,0.06);
+      border: 0.5px solid rgba(232,201,122,0.2);
+      border-radius: 12px; padding: 14px 18px; margin-top: 1.5rem;
+    }
+    .upgrade-bar.visible { display: flex; }
+    .upgrade-text { font-size: 13px; color: var(--text2); }
+    .upgrade-text strong { color: var(--text); font-weight: 500; }
+    .upgrade-btn {
+      background: var(--accent); color: #0d0d0f;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: 13px;
+      padding: 8px 18px; border-radius: 8px;
+      border: none; cursor: pointer; transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .upgrade-btn:hover { opacity: 0.85; }
+
+    /* PRICING */
+    .pricing-section {
+      max-width: 620px; margin: 5rem auto; padding: 0 1rem;
+    }
+    .pricing-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem; text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-sub { text-align: center; color: var(--text2); font-size: 14px; margin-bottom: 2.5rem; }
+
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 480px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+    .pricing-card {
+      background: var(--bg2); border: 0.5px solid var(--border);
+      border-radius: 16px; padding: 1.75rem;
+    }
+    .pricing-card.featured { border-color: rgba(232,201,122,0.4); }
+
+    .plan-badge {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--text3); margin-bottom: 1rem;
+    }
+    .plan-badge.gold { color: var(--accent); }
+    .plan-price { font-size: 2.2rem; font-weight: 600; color: var(--text); line-height: 1; }
+    .plan-price span { font-size: 14px; color: var(--text2); font-weight: 400; }
+    .plan-desc { font-size: 13px; color: var(--text2); margin: 0.75rem 0 1.25rem; }
+    .plan-features { list-style: none; }
+    .plan-features li {
+      font-size: 13px; color: var(--text2);
+      padding: 5px 0; display: flex; align-items: center; gap: 8px;
+    }
+    .plan-features li::before { content: '✓'; color: var(--success); font-weight: 600; }
+    .plan-features li.muted::before { content: '✕'; color: var(--text3); }
+    .plan-features li.muted { color: var(--text3); }
+    .plan-btn {
+      width: 100%; margin-top: 1.5rem; padding: 11px;
+      border-radius: 10px; font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: opacity 0.15s; border: none;
+    }
+    .plan-btn.free { background: var(--bg3); color: var(--text2); border: 0.5px solid var(--border); }
+    .plan-btn.pro { background: var(--accent); color: #0d0d0f; }
+    .plan-btn:hover { opacity: 0.85; }
+
+    /* FOOTER */
+    footer {
+      border-top: 0.5px solid var(--border);
+      text-align: center; padding: 2rem;
+      font-size: 13px; color: var(--text3);
+    }
+
+    .error-msg { font-size: 13px; color: var(--danger); padding: 1rem 0; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0d0d0f" stroke-width="2.5" stroke-linecap="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <span class="nav-logo-name">AdCopy IA</span>
+  </div>
+  <a href="#pricing" class="nav-cta">Ver planes</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span></span> Generador con inteligencia artificial
+  </div>
+  <h1>Anuncios para Meta Ads <em>en segundos</em></h1>
+  <p class="hero-sub">Describe tu negocio y tu oferta — nuestra IA genera 3 anuncios listos para copiar en Facebook e Instagram. Sin conocimientos de marketing.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">anuncios por generación</div></div>
+    <div class="stat"><div class="stat-num">&lt;10s</div><div class="stat-label">tiempo de respuesta</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">tonos disponibles</div></div>
+  </div>
+</section>
+
+<!-- FORM -->
+<div style="padding: 0 1rem 1rem;">
+  <div class="form-card">
+    <div class="form-section-label">Cuéntanos sobre tu negocio</div>
+
+    <div class="field">
+      <label><strong>¿Qué tipo de negocio tienes?</strong></label>
+      <input type="text" id="negocio" placeholder="Ej: salón de belleza, restaurante, clínica dental..." />
+    </div>
+
+    <div class="field">
+      <label><strong>¿Cuál es tu oferta o promoción?</strong></label>
+      <textarea id="oferta" placeholder="Ej: 20% de descuento en corte + tinte este mes, solo para nuevos clientes"></textarea>
+    </div>
+
+    <div class="field">
+      <label><strong>¿A quién le vendes?</strong> <span style="color:var(--text3)">(opcional)</span></label>
+      <input type="text" id="cliente" placeholder="Ej: mujeres de 25 a 45 años en Cuenca" />
+    </div>
+
+    <div class="field">
+      <label><strong>¿En qué ciudad estás?</strong> <span style="color:var(--text3)">(opcional)</span></label>
+      <input type="text" id="ciudad" placeholder="Ej: Cuenca, Ecuador" />
+    </div>
+
+    <hr class="divider-line" />
+
+    <div class="form-section-label">Tono del anuncio</div>
+    <div class="tone-grid">
+      <button class="tone-btn active" onclick="selectTone(this,'urgente')">🔥 Urgente</button>
+      <button class="tone-btn" onclick="selectTone(this,'profesional')">💼 Profesional</button>
+      <button class="tone-btn" onclick="selectTone(this,'cercano')">🤝 Cercano</button>
+      <button class="tone-btn" onclick="selectTone(this,'divertido')">😄 Divertido</button>
+      <button class="tone-btn" onclick="selectTone(this,'elegante')">✨ Elegante</button>
+      <button class="tone-btn" onclick="selectTone(this,'directo')">⚡ Directo</button>
+    </div>
+
+    <button class="generate-btn" id="genBtn" onclick="generarAnuncios()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Generar 3 anuncios con IA
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-wrap" id="resultsWrap" style="display:none;">
+    <div class="loading" id="loading">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <p>Generando tus anuncios con IA...</p>
+    </div>
+    <div id="adsContainer"></div>
+    <div class="upgrade-bar" id="upgradeBar">
+      <div class="upgrade-text">Estás en el plan <strong>gratuito</strong> — 3 generaciones al mes</div>
+      <button class="upgrade-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Ver plan Pro ↓</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <h2 class="pricing-title">Planes simples</h2>
+  <p class="pricing-sub">Sin contratos. Cancela cuando quieras.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="plan-badge">Gratis</div>
+      <div class="plan-price">$0 <span>/ mes</span></div>
+      <p class="plan-desc">Para probar la herramienta</p>
+      <ul class="plan-features">
+        <li>3 generaciones al mes</li>
+        <li>3 anuncios por generación</li>
+        <li>6 tonos disponibles</li>
+        <li class="muted">Sin límite de palabras</li>
+        <li class="muted">Soporte prioritario</li>
+      </ul>
+      <button class="plan-btn free">Plan actual</button>
+    </div>
+    <div class="pricing-card featured">
+      <div class="plan-badge gold">⭐ Pro</div>
+      <div class="plan-price">$19 <span>/ mes</span></div>
+      <p class="plan-desc">Para negocios que quieren crecer</p>
+      <ul class="plan-features">
+        <li>Generaciones ilimitadas</li>
+        <li>3 anuncios por generación</li>
+        <li>6 tonos disponibles</li>
+        <li>Sin límite de palabras</li>
+        <li>Soporte prioritario</li>
+      </ul>
+      <button class="plan-btn pro" onclick="window.location.href='YOUR_STRIPE_LINK_HERE'">Empezar ahora</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 AdCopy IA — Hecho con IA para negocios que quieren vender más
+</footer>
+
+<script>
+  let toneSelected = 'urgente';
+
+  function selectTone(el, tone) {
+    document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    toneSelected = tone;
+  }
+
+  async function generarAnuncios() {
+    const negocio = document.getElementById('negocio').value.trim();
+    const oferta = document.getElementById('oferta').value.trim();
+    const cliente = document.getElementById('cliente').value.trim();
+    const ciudad = document.getElementById('ciudad').value.trim();
+
+    if (!negocio || !oferta) {
+      alert('Por favor completa el tipo de negocio y la oferta.');
+      return;
+    }
+
+    const btn = document.getElementById('genBtn');
+    btn.disabled = true;
+    btn.textContent = 'Generando...';
+
+    const wrap = document.getElementById('resultsWrap');
+    wrap.style.display = 'block';
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('adsContainer').innerHTML = '';
+    document.getElementById('upgradeBar').classList.remove('visible');
+
+    try {
+      const res = await fetch('/api/generar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ negocio, oferta, cliente, ciudad, tono: toneSelected })
+      });
+
+      const data = await res.json();
+      document.getElementById('loading').style.display = 'none';
+
+      if (!data.anuncios) throw new Error('Sin anuncios');
+
+      const container = document.getElementById('adsContainer');
+      container.innerHTML = '<div class="results-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg> 3 anuncios generados — listos para copiar</div>';
+
+      data.anuncios.forEach((ad, i) => {
+        const card = document.createElement('div');
+        card.className = 'ad-card';
+        const fullText = `${ad.titulo}\n\n${ad.cuerpo}\n\n👉 ${ad.cta}`;
+        card.innerHTML = `
+          <div class="ad-num">Anuncio ${i + 1}</div>
+          <div class="ad-title">${ad.titulo}</div>
+          <div class="ad-body">${ad.cuerpo}</div>
+          <span class="ad-cta">${ad.cta}</span>
+          <button class="copy-btn" onclick="copiar(this, \`${fullText.replace(/`/g,'\\`')}\`)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar
+          </button>`;
+        container.appendChild(card);
+      });
+
+      document.getElementById('upgradeBar').classList.add('visible');
+
+    } catch (err) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('adsContainer').innerHTML = '<p class="error-msg">Ocurrió un error al generar. Intenta nuevamente.</p>';
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Generar 3 anuncios con IA';
+  }
+
+  function copiar(btn, texto) {
+    navigator.clipboard.writeText(texto).then(() => {
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copiado';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copiar';
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
